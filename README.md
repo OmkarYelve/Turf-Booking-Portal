@@ -52,7 +52,6 @@ Turf-Booking-Portal/
 ├── .env
 ├── README.md
 ├── package.json         
-└── LICENSE
 
 ```
 
