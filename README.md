@@ -45,7 +45,7 @@ Turf-Booking-Portal/
 │   ├── config/
 │   └── server.js
 │
-├── Turff/               # React frontend
+├── client/               # React frontend
 │   └── ...              # Components, pages, assets, etc.
 │
 ├── .gitignore
