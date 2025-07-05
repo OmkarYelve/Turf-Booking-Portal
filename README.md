@@ -38,15 +38,15 @@ Turf-Booking-Portal/
 ├── admin/               # Admin panel frontend
 │   └── ...              # Admin-related components and pages
 │
+├── client/               # React frontend
+│   └── ...              # Components, pages, assets, etc.
+│
 ├── server/              # Backend (Node.js + Express)
 │   ├── routes/
 │   ├── models/
 │   ├── controllers/
 │   ├── config/
 │   └── server.js
-│
-├── client/               # React frontend
-│   └── ...              # Components, pages, assets, etc.
 │
 ├── .gitignore
 ├── .env
