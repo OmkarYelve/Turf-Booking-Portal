@@ -51,7 +51,7 @@ Turf-Booking-Portal/
 ├── .gitignore
 ├── .env
 ├── README.md
-├── package.json         
+└── package.json         
 
 ```
 
