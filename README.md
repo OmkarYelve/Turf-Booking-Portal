@@ -29,6 +29,31 @@ A full-stack **MERN** (MongoDB, Express.js, React.js, Node.js) web application t
 * **MongoDB** with **Mongoose**
 
 ---
+# Projects Screenshots 
+
+## 🏠 Home Page
+![Home Page](./images/home-page.png)
+
+---
+
+## ⚽ Grounds Listing Page
+![Grounds Page](./images/grounds-page.png)
+
+---
+
+## 📅 User Bookings Page
+![Check Bookings](./images/check-bookings.png)
+
+---
+
+## 🔧 Admin Dashboard – Home
+![Admin Home](./images/admin-home.png)
+
+---
+
+## 📋 Admin Dashboard – Bookings Overview
+![Admin Bookings](./images/admin-bookings.png)
+
 
 ## 📁 Project Structure
 
@@ -98,7 +123,7 @@ npm start
 ```bash
 cd ../client
 npm install
-npm start
+npm run dev
 ```
 
 
