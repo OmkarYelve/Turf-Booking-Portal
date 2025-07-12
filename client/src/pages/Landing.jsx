@@ -68,7 +68,7 @@ const Landing = () => {
     });
 
     gsap.to("#main", {
-      backgroundColor: " #FFFFE0",
+      backgroundColor: " rgba(255, 255, 224, 1)",
       scrollTrigger: {
         trigger: "#main",
         scroller: "body",
@@ -85,7 +85,7 @@ const Landing = () => {
       <Navbar />
       <video  autoPlay loop muted preload="metadata"><source autoPlay src={turf} type="video/mp4" />
       </video>
-      <div id="main">
+      <div id="main" className="mt-0 pt-0">
         <div id="page1">
           <h1>EAT. DRINK. PLAY.</h1>
           <h2>WELCOME TO TURF's CORNER!</h2>
