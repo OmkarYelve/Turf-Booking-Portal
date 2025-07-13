@@ -119,15 +119,9 @@ export const userSignup = async (req, res) => {
 // }
 export const userLogin = async (req, res) => {
     try {
-         console.log("Login attempt for email:", email);
-console.log("Match password result:", matchPassword);
         const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).send({
-                message: "Email and password required",
-                success: false,
-            });
-        }
+
+        // Find user
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).send({
@@ -136,6 +130,7 @@ console.log("Match password result:", matchPassword);
             });
         }
 
+        // Compare password
         const matchPassword = await bcrypt.compare(password, user.password);
         if (!matchPassword) {
             return res.status(403).send({
@@ -144,11 +139,13 @@ console.log("Match password result:", matchPassword);
             });
         }
 
+        // Now use user.email safely
         const token = jwt.sign(
-            { email, role: 'user' },
+            { email: user.email, role: 'user' },
             process.env.SECRET,
             { expiresIn: '1d' }
         );
+
         return res.status(200).send({
             message: "Logged in successfully",
             success: true,
@@ -164,6 +161,7 @@ console.log("Match password result:", matchPassword);
         });
     }
 }
+
 
 
 
