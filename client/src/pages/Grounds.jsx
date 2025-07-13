@@ -8,6 +8,8 @@ const Grounds = () => {
 
   const getAllGrounds = async () => {
     try {
+      console.log("🌐 BASE_URL USED IN DEPLOYED APP:", BASE_URL);
+
       const { data } = await axios.get(`${BASE_URL}/api/v1/user/grounds`);
       console.log("data is", data);
       if (data.success) {
