@@ -67,8 +67,12 @@ export const userSignup = async (req, res) => {
 
 
 //*************** user login ***************//
+
 export const userLogin = async (req, res) => {
     try {
+        console.log("Login attempt for email:", email);
+console.log("Match password result:", matchPassword);
+
         const { email, password } = req.body;
 
         // Find user
