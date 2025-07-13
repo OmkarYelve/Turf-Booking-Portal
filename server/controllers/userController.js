@@ -68,14 +68,66 @@ export const userSignup = async (req, res) => {
 
 //*************** user login ***************//
 
+// export const userLogin = async (req, res) => {
+//     try {
+//         console.log("Login attempt for email:", email);
+// console.log("Match password result:", matchPassword);
+
+//         const { email, password } = req.body;
+
+//         // Find user
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.status(400).send({
+//                 message: "User not found",
+//                 success: false,
+//             });
+//         }
+
+//         // Correct way to compare password (await)
+//         const matchPassword = await bcrypt.compare(password, user.password);
+//         if (!matchPassword) {
+//             return res.status(403).send({
+//                 message: "Incorrect email or password",
+//                 success: false,
+//             });
+//         }
+
+//         // Generate JWT token
+//         const token = jwt.sign(
+//             { email, role: 'user' },
+//             process.env.SECRET,
+//             { expiresIn: '1d' }
+//         );
+
+//         // Send properly structured response
+//         return res.status(200).send({
+//             message: "Logged in successfully",
+//             success: true,
+//             user,
+//             token,
+//         });
+
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).send({
+//             message: "Something went wrong",
+//             success: false,
+//             error,
+//         });
+//     }
+// }
 export const userLogin = async (req, res) => {
     try {
-        console.log("Login attempt for email:", email);
+         console.log("Login attempt for email:", email);
 console.log("Match password result:", matchPassword);
-
         const { email, password } = req.body;
-
-        // Find user
+        if (!email || !password) {
+            return res.status(400).send({
+                message: "Email and password required",
+                success: false,
+            });
+        }
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).send({
@@ -84,7 +136,6 @@ console.log("Match password result:", matchPassword);
             });
         }
 
-        // Correct way to compare password (await)
         const matchPassword = await bcrypt.compare(password, user.password);
         if (!matchPassword) {
             return res.status(403).send({
@@ -93,21 +144,17 @@ console.log("Match password result:", matchPassword);
             });
         }
 
-        // Generate JWT token
         const token = jwt.sign(
             { email, role: 'user' },
             process.env.SECRET,
             { expiresIn: '1d' }
         );
-
-        // Send properly structured response
         return res.status(200).send({
             message: "Logged in successfully",
             success: true,
             user,
             token,
         });
-
     } catch (error) {
         console.log(error);
         return res.status(500).send({
@@ -117,6 +164,7 @@ console.log("Match password result:", matchPassword);
         });
     }
 }
+
 
 
 //*************** display grounds for the user ***************//
