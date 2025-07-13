@@ -53,6 +53,8 @@ export const userSignup = async (req, res) => {
 export const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
+
+        // Find user
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).send({
@@ -61,8 +63,8 @@ export const userLogin = async (req, res) => {
             });
         }
 
-        //compare password
-        const matchPassword = bcrypt.compare(password, user.password);
+        // Correct way to compare password (await)
+        const matchPassword = await bcrypt.compare(password, user.password);
         if (!matchPassword) {
             return res.status(403).send({
                 message: "Incorrect email or password",
@@ -70,14 +72,16 @@ export const userLogin = async (req, res) => {
             });
         }
 
-        //create token and login
+        // Generate JWT token
         const token = jwt.sign(
             { email, role: 'user' },
             process.env.SECRET,
             { expiresIn: '1d' }
         );
-        res.status(200).send({
-            message: "Logged in",
+
+        // Send properly structured response
+        return res.status(200).send({
+            message: "Logged in successfully",
             success: true,
             user,
             token,
@@ -92,6 +96,7 @@ export const userLogin = async (req, res) => {
         });
     }
 }
+
 
 //*************** display grounds for the user ***************//
 export const getGrounds = async (req, res) => {
