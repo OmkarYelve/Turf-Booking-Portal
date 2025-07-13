@@ -628,5 +628,40 @@ video {
     padding: 0.5rem 1rem;
   }
 }
+@media (max-width: 768px) {
+  #nav {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  #nav img {
+    height: 40px; /* smaller logo on mobile */
+  }
+
+  #nav h4,
+  #nav a,
+  #nav button {
+    font-size: 3.5vw;
+    padding: 0.4rem 0.8rem;
+  }
+
+  #nav button {
+    font-size: 3.5vw;
+    padding: 0.4rem 1rem;
+  }
+}
+@media (max-width: 450px) {
+  #nav h4,
+  #nav a,
+  #nav button {
+    font-size: 4vw;
+    padding: 0.3rem 0.6rem;
+  }
+
+  #nav img {
+    height: 35px;
+  }
+}
+
 
 
