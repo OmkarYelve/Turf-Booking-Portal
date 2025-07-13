@@ -8,7 +8,7 @@ const Grounds = () => {
 
   const getAllGrounds = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/api/v1/user/grounds`);
+      const { data } = await axios.get(`${BASE_URL}/user/grounds`);
       console.log("data is", data);
       if (data.success) {
         setGrounds(data.grounds);
