@@ -87,12 +87,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from '../redux/store';
 import toast from 'react-hot-toast';
-//import { Menu, X } from 'lucide-react'; // Optional icons (or use SVGs)
-{/* Hamburger Icon */}
-<svg onClick={() => setIsOpen(!isOpen)} xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 md:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-</svg>
-
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -112,7 +106,7 @@ const Navbar = () => {
   return (
     <nav className="bg-black text-white px-6 py-4 fixed top-0 left-0 w-full z-50 shadow-md">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
-        {/* Logo + Name */}
+        {/* Logo and Brand */}
         <div className="flex items-center space-x-4">
           <img
             src="https://eiwgew27fhz.exactdn.com/wp-content/uploads/2023/02/logo-white.svg"
@@ -127,13 +121,30 @@ const Navbar = () => {
           </span>
         </div>
 
-        {/* Mobile Menu Icon */}
+        {/* Mobile Hamburger Toggle */}
         <div className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d={
+                isOpen
+                  ? "M6 18L18 6M6 6l12 12" // X icon
+                  : "M4 6h16M4 12h16M4 18h16" // Hamburger
+              }
+            />
+          </svg>
         </div>
 
         {/* Nav Links */}
-        <div className={`flex-col md:flex md:flex-row md:items-center md:space-x-8 absolute md:static top-full left-0 w-full md:w-auto bg-black md:bg-transparent transition-all duration-300 ease-in-out ${isOpen ? 'flex' : 'hidden'}`}>
+        <div className={`flex-col md:flex md:flex-row md:items-center md:space-x-8 absolute md:static top-16 left-0 w-full md:w-auto bg-black md:bg-transparent transition-all duration-300 ease-in-out ${isOpen ? 'flex' : 'hidden'}`}>
           <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500" onClick={() => navigate('/')}>Home</h4>
           <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500" onClick={() => navigate('/grounds')}>Grounds</h4>
           <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500" onClick={() => navigate('/contact')}>Contact</h4>
