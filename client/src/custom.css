@@ -64,15 +64,13 @@ body {
   z-index: 999;
    background: linear-gradient(to right, #95c11e, #d9e664);
   color: #000;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  color: white;
 }
-#nav.scrolled {
+/* #nav.scrolled {
   background-color: rgba(0, 0, 0, 0.85); /* semi-transparent black */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   color: white
-}
+} */
 
 #nav h4,
 #nav button,
