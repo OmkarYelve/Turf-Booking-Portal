@@ -7,8 +7,18 @@ import { Booking } from "../models/bookingModel.js";
 //*************** user registration ***************//
 
 export const userSignup = async (req, res) => {
-    const { username, email, password, mobileNo } = req.body;
     try {
+        const { username, email, password, mobileNo } = req.body;
+
+        // Check for missing fields
+        if (!username || !email || !password || !mobileNo) {
+            return res.status(400).send({
+                message: "Please fill all required fields",
+                success: false,
+            });
+        }
+
+        // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(403).send({
@@ -17,28 +27,34 @@ export const userSignup = async (req, res) => {
             });
         }
 
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create new user
         const user = new User({
-            username: username,
-            email: email,
+            username,
+            email,
             password: hashedPassword,
-            mobileNo: mobileNo,
+            mobileNo,
         });
 
-        await user.save(); //save user to db
+        await user.save();
 
+        // Generate JWT token
         const token = jwt.sign(
             { email, role: 'user' },
             process.env.SECRET,
             { expiresIn: '1d' }
         );
 
+        // Return success response
         return res.status(201).send({
-            message: "User created",
+            message: "User created successfully",
             success: true,
             user,
             token,
-        })
+        });
+
     } catch (error) {
         console.log(error);
         return res.status(500).send({
@@ -48,6 +64,7 @@ export const userSignup = async (req, res) => {
         });
     }
 }
+
 
 //*************** user login ***************//
 export const userLogin = async (req, res) => {
