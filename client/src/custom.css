@@ -600,3 +600,33 @@ video {
   }
 }
 
+@media (max-width: 768px) {
+  #nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, #95c11e, #d9e664);
+    width: 100%;
+    z-index: 999;
+  }
+
+  #nav img {
+    height: 40px;
+  }
+
+  #nav h4,
+  #nav a,
+  #nav button {
+    font-size: 4vw;
+  }
+
+  #nav button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+
