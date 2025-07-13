@@ -104,64 +104,64 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-black text-white px-6 py-4 fixed top-0 left-0 w-full z-50 shadow-md">
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
-        {/* Logo and Brand */}
-        <div className="flex items-center space-x-4">
-          <img
-            src="https://eiwgew27fhz.exactdn.com/wp-content/uploads/2023/02/logo-white.svg"
-            alt="Logo"
-            className="h-10"
+    <nav id="nav" className="flex flex-wrap items-center justify-between z-50">
+      {/* Logo and Brand */}
+      <div className="flex items-center space-x-4">
+        <img
+          src="https://eiwgew27fhz.exactdn.com/wp-content/uploads/2023/02/logo-white.svg"
+          alt="Logo"
+          className="h-10 md:h-[4.5vw]"
+        />
+        <span
+          className="text-xl font-bold cursor-pointer"
+          onClick={() => navigate('/')}
+        >
+          Turf's Corner
+        </span>
+      </div>
+
+      {/* Mobile toggle button */}
+      <div className="md:hidden ml-auto" onClick={() => setIsOpen(!isOpen)}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-8 w-8 text-black"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d={
+              isOpen
+                ? "M6 18L18 6M6 6l12 12" // close icon
+                : "M4 6h16M4 12h16M4 18h16" // hamburger icon
+            }
           />
-          <span
-            className="text-xl font-bold cursor-pointer"
-            onClick={() => navigate('/')}
-          >
-            Turf's Corner
-          </span>
-        </div>
+        </svg>
+      </div>
 
-        {/* Mobile Hamburger Toggle */}
-        <div className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={
-                isOpen
-                  ? "M6 18L18 6M6 6l12 12" // X icon
-                  : "M4 6h16M4 12h16M4 18h16" // Hamburger
-              }
-            />
-          </svg>
-        </div>
-
-        {/* Nav Links */}
-        <div className={`flex-col md:flex md:flex-row md:items-center md:space-x-8 absolute md:static top-16 left-0 w-full md:w-auto bg-black md:bg-transparent transition-all duration-300 ease-in-out ${isOpen ? 'flex' : 'hidden'}`}>
-          <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500" onClick={() => navigate('/')}>Home</h4>
-          <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500" onClick={() => navigate('/grounds')}>Grounds</h4>
-          <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500" onClick={() => navigate('/contact')}>Contact</h4>
-          <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500">Coffee Shop</h4>
-          <h4 className="px-6 py-2 cursor-pointer hover:text-pink-500">Leagues</h4>
+      {/* Nav links */}
+      <div className={`w-full md:flex md:items-center md:space-x-8 mt-4 md:mt-0 ${isOpen ? 'block' : 'hidden'}`}>
+        <div className="flex flex-col md:flex-row md:items-center md:space-x-8 w-full">
+          <h4 className="cursor-pointer hover:text-[#444] font-semibold py-2 md:py-0" onClick={() => navigate('/')}>Home</h4>
+          <h4 className="cursor-pointer hover:text-[#444] font-semibold py-2 md:py-0" onClick={() => navigate('/grounds')}>Grounds</h4>
+          <h4 className="cursor-pointer hover:text-[#444] font-semibold py-2 md:py-0" onClick={() => navigate('/contact')}>Contact</h4>
+          <h4 className="cursor-pointer hover:text-[#444] font-semibold py-2 md:py-0">Coffee Shop</h4>
+          <h4 className="cursor-pointer hover:text-[#444] font-semibold py-2 md:py-0">Leagues</h4>
 
           {!isLogin ? (
             <button
-              className="bg-white text-black font-bold px-6 py-2 mx-6 my-2 md:my-0 rounded-md hover:bg-gray-200"
+              className="bg-white text-black font-bold px-6 py-2 rounded-md hover:bg-gray-200 mt-2 md:mt-0"
               onClick={handleLogin}
             >
               Login
             </button>
           ) : (
-            <div className="relative group px-6 py-2">
-              <div className="flex items-center space-x-2 cursor-pointer">
-                <span className="text-pink-500 font-bold">Hi {user}!</span>
+            <div className="relative group">
+              <div className="flex items-center space-x-2 cursor-default">
+                <span className="text-black font-bold">Hi {user}!</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -173,16 +173,10 @@ const Navbar = () => {
                 </svg>
               </div>
               <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
-                <a
-                  className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => navigate('/bookings')}
-                >
+                <a className="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => navigate('/bookings')}>
                   Bookings
                 </a>
-                <a
-                  className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={handleLogout}
-                >
+                <a className="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
                   Logout
                 </a>
               </div>
