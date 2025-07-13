@@ -600,68 +600,53 @@ video {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   #nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: linear-gradient(to right, #95c11e, #d9e664);
-    width: 100%;
-    z-index: 999;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
   }
-
   #nav img {
-    height: 40px;
+    height: 50px;
   }
-
   #nav h4,
   #nav a,
   #nav button {
-    font-size: 4vw;
-  }
-
-  #nav button {
-    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
   }
 }
+
 @media (max-width: 768px) {
   #nav {
-    padding: 1rem;
     gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
   }
-
   #nav img {
-    height: 40px; /* smaller logo on mobile */
+    height: 40px;
   }
-
   #nav h4,
   #nav a,
   #nav button {
     font-size: 3.5vw;
     padding: 0.4rem 0.8rem;
   }
-
-  #nav button {
-    font-size: 3.5vw;
-    padding: 0.4rem 1rem;
-  }
 }
-@media (max-width: 450px) {
+
+@media (max-width: 480px) {
+  #nav {
+    gap: 0.5rem;
+    padding: 0.8rem;
+    justify-content: center;
+  }
+  #nav img {
+    height: 35px;
+  }
   #nav h4,
   #nav a,
   #nav button {
     font-size: 4vw;
     padding: 0.3rem 0.6rem;
   }
-
-  #nav img {
-    height: 35px;
-  }
 }
-
 
 
