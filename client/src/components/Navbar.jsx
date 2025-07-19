@@ -26,7 +26,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-black text-white fixed w-full z-50 top-0">
+    // <div className="bg-black text-white fixed w-full z-50 top-0">
+      <div className="bg-[#95c11e] text-black fixed w-full z-50 top-0">
+
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
         {/* Logo and title */}
         <div className="flex items-center space-x-4">
