@@ -183,21 +183,7 @@ const Landing = () => {
     </div>
 
         
-{/*         </div>
-          <div id="about-us" >
-            <div id="about-us-in">
-             <h3 className="pt-24 text-5xl font-extrabold text-center text-pink-600">
-  ABOUT US
-</h3>
 
-
-              <p className="mt-4 text-center text-lg text-gray-800">
-  Turf's Corner is an app where you can book grounds to play football and cricket with your friends and loved ones. Book a ground near you today!
-</p>
-
-            </div>
-          </div>
-        </div> */}
             <section className="w-full bg-white py-24">
   <div className="w-4/5 mx-auto text-center">
     <h2 className="text-5xl font-extrabold text-pink-600">ABOUT US</h2>
