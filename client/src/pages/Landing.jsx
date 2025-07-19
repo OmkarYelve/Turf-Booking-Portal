@@ -1,5 +1,5 @@
 import GroundCard from "../components/GroundCard";
-// import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar'
 import ImageSlider from "../components/ImageSlider";
 import { useNavigate } from "react-router-dom";
 import "../custom.css";
