@@ -27,8 +27,8 @@ const Navbar = () => {
 
   return (
     // <div className="bg-black text-white fixed w-full z-50 top-0">
-     //<div className="bg-[#95c11e] text-black fixed w-full z-50 top-0">
-       <div className="md:hidden absolute top-16 left-0 w-full bg-black text-white flex flex-col items-start gap-4 p-6 z-40">
+     <div className="bg-[#95c11e] text-black fixed w-full z-50 top-0">
+
 
       
 
