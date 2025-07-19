@@ -26,13 +26,7 @@ const Navbar = () => {
   };
 
   return (
-    // <div className="bg-black text-white fixed w-full z-50 top-0">
-     <div className="bg-[#95c11e] text-black fixed w-full z-50 top-0">
-
-
-      
-
-
+    <div className="bg-[#95c11e] text-black fixed w-full z-50 top-0">
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
         {/* Logo and title */}
         <div className="flex items-center space-x-4">
@@ -116,7 +110,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden px-6 pb-4 flex flex-col space-y-4 bg-black">
+        <div className="md:hidden px-6 pb-4 pt-2 flex flex-col space-y-4 bg-black text-white z-40">
           <h4 className="cursor-pointer hover:text-pink-500 font-semibold" onClick={() => handleNavClick('/')}>Home</h4>
           <h4 className="cursor-pointer hover:text-pink-500 font-semibold" onClick={() => handleNavClick('/grounds')}>Grounds</h4>
           <h4 className="cursor-pointer hover:text-pink-500 font-semibold" onClick={() => handleNavClick('/contact')}>Contact</h4>
@@ -134,13 +128,13 @@ const Navbar = () => {
             <>
               <h4 className="text-pink-500 font-bold">Hi {user}!</h4>
               <button
-                className="text-left text-white hover:text-pink-500"
+                className="text-left text-white hover:text-pink-500 font-semibold"
                 onClick={() => handleNavClick('/bookings')}
               >
                 Bookings
               </button>
               <button
-                className="text-left text-white hover:text-pink-500"
+                className="text-left text-white hover:text-pink-500 font-semibold"
                 onClick={handleLogout}
               >
                 Logout
