@@ -186,7 +186,10 @@ const Landing = () => {
         </div>
           <div id="about-us" >
             <div id="about-us-in">
-              <h3 className="pt-24 text-5xl font-extrabold text-center text-pink-600">ABOUT US</h3>
+             <h3 className="pt-24 text-5xl font-extrabold text-center text-pink-600">
+               ABOUT US
+             </h3>
+
               <p className="text-black">
               Turf's Corner is an app where you 
               can book grounds to play 
