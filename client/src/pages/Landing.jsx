@@ -182,7 +182,7 @@ const Landing = () => {
             )}</div>
     </div>
         </div>
-          <section className="w-full bg-white py-24">
+          <section className="w-full py-24">
   <div className="w-4/5 mx-auto text-center">
     <h2 className="text-5xl font-extrabold text-pink-600">ABOUT US</h2>
     <p className="mt-6 text-lg text-black">
@@ -190,6 +190,7 @@ const Landing = () => {
     </p>
   </div>
 </section>
+
 
         </div>
         
