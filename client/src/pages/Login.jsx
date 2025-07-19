@@ -37,7 +37,7 @@ const Login = () => {
 		}
 
 		try {
-			const { data } = await axios.post(`${BASE_URL}/api/v1/user/login`, {
+			const { data } = await axios.post(${BASE_URL}/api/v1/user/login, {
 				email: inputs.email,
 				password: inputs.password,
 			});
@@ -113,7 +113,6 @@ const Login = () => {
   </div>
 );
 
-	);
 };
 
 export default Login;
