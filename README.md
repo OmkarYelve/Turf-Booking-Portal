@@ -183,6 +183,5 @@ Want to improve the project?
 
 ---
 
-> ⭐ If you like this project, consider starring the repo to show support!
-
+> ⭐ If you like this project, consider starring the repo !
 
