@@ -187,10 +187,3 @@ Want to improve the project?
 
 ````
 
----
-
-```markdown
-![GitHub repo size](https://img.shields.io/github/repo-size/OmkarYelve/Turf-Booking-Portal)
-![GitHub last commit](https://img.shields.io/github/last-commit/OmkarYelve/Turf-Booking-Portal)
-![GitHub issues](https://img.shields.io/github/issues/OmkarYelve/Turf-Booking-Portal)
-````
