@@ -92,68 +92,6 @@ Turf-Booking-Portal/
 
 ````
 
----
-
-## 🚀 Getting Started
-
-### 🔧 Prerequisites
-
-- Node.js (v14+)
-- MongoDB (local or Atlas)
-- Git
-
----
-
-### 📦 Clone the Repository
-
-```bash
-git clone https://github.com/OmkarYelve/Turf-Booking-Portal.git
-cd Turf-Booking-Portal
-````
-
----
-
-### 🔌 Backend Setup
-
-```bash
-cd server
-npm install
-touch .env
-```
-
-Add environment variables to `.env`:
-
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-```
-
-Start the backend:
-
-```bash
-npm start
-```
-
----
-
-### 💻 Frontend Setup (User)
-
-```bash
-cd ../client
-npm install
-npm run dev
-```
-
-### 🔐 Admin Panel Setup
-
-```bash
-cd ../admin
-npm install
-npm run dev
-```
-
----
-
 ## 🔮 Future Enhancements
 
 * 💳 Payment Gateway Integration (Stripe/Razorpay)
