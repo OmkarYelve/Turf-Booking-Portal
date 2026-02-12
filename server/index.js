@@ -33,6 +33,8 @@ import dotenv from 'dotenv';
 import adminRoute from './routes/adminRoutes.js';
 import userRoute from './routes/userRoutes.js';
 import connectdb from './dbconfig/connectdb.js';
+import dotenv from 'dotenv';
+
 
 dotenv.config(); // make sure you load .env variables
 

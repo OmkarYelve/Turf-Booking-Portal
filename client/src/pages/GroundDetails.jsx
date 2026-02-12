@@ -2,17 +2,15 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { BASE_URL } from '../utils/helper';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ImageViewer from 'react-simple-image-viewer';
 import toast from 'react-hot-toast';
 import 'react-datepicker/dist/react-datepicker.css';
 
-
-
 const GroundDetails = () => {
 
 	const token = localStorage.getItem('token');
-	const email = localStorage.getItem('email');
+	const userId = localStorage.getItem('userId');
 	const navigate = useNavigate();
 	const id = useParams().id;
 	const [inputs, setInputs] = useState({});
@@ -21,11 +19,10 @@ const GroundDetails = () => {
 	const [ground, setGround] = useState({});
 	const [selectedDate, setSelectedDate] = useState(new Date());
 	const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+	const [isProcessing, setIsProcessing] = useState(false);
 
-	//global state
 	let isLogin = useSelector((state) => state.isLogin);
 	isLogin = isLogin || localStorage.getItem('userId');
-
 
 	const openImageViewer = (index) => {
 		setCurrentImage(index);
@@ -36,15 +33,11 @@ const GroundDetails = () => {
 		setIsViewerOpen(false);
 	};
 
-	//logic to get ground details
 	const getGroundDetails = async () => {
 		try {
 			const { data } = await axios.get(`${BASE_URL}/api/v1/user/ground/${id}`, {
-				headers: {
-					'Authorization': `Bearer ${token}`,
-				}
+				headers: { 'Authorization': `Bearer ${token}` }
 			});
-			console.log(data);
 			if (data?.success) {
 				setGround(data?.ground);
 				setInputs({
@@ -54,54 +47,114 @@ const GroundDetails = () => {
 					price: data?.ground.price,
 					images: data?.ground.images,
 					availableSlots: data?.ground.availableSlots,
-				})
-				
+				});
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	}
+
 	useEffect(() => {
 		getGroundDetails();
 	}, []);
 
-	//handle datechange to disable current day timeslot
 	const handleDateChange = (event) => {
-		const selectedValue = event.target.value;
-		setSelectedDate(new Date(selectedValue));
+		setSelectedDate(new Date(event.target.value));
 	};
 	const handleTimeSlotChange = (event) => {
-		const selectedValue = event.target.value;
-		setSelectedTimeSlot(selectedValue);
+		setSelectedTimeSlot(event.target.value);
 	};
+
 	const isCurrentDate = selectedDate.toISOString().split('T')[0] === new Date().toISOString().split('T')[0];
 
-	//logic to book ground
-	const bookGround = async (e) => {
+	// Razorpay payment flow
+	const handlePayment = async (e) => {
 		e.preventDefault();
-		if (selectedDate === "" || selectedTimeSlot === "") {
+
+		if (!selectedDate || !selectedTimeSlot) {
 			toast.error("Select date and time");
 			return;
 		}
+
+		setIsProcessing(true);
+
 		try {
-			const { data } = await axios.post(`${BASE_URL}/api/v1/user/book-slot/${id}`, {
+			// Step 1: Create order on backend
+			const { data } = await axios.post(`${BASE_URL}/api/v1/user/payment/create-order`, {
+				amount: inputs.price,
+				turfId: id,
 				date: selectedDate,
 				timeSlot: selectedTimeSlot,
+				userId,
 			}, {
 				headers: {
 					'Authorization': `Bearer ${token}`,
 					'Content-Type': 'application/json',
 				}
 			});
-			if (data.success) {
-				toast.success("Ground booked!");
-				navigate('/bookings');
+
+			if (!data.success) {
+				toast.error("Failed to create order");
+				setIsProcessing(false);
+				return;
 			}
+
+			// Step 2: Open Razorpay checkout
+			const options = {
+				key: data.key,
+				amount: data.order.amount,
+				currency: 'INR',
+				name: 'TurfsCorner',
+				description: `Booking for ${inputs.name}`,
+				order_id: data.order.id,
+				handler: async (response) => {
+					try {
+						// Step 3: Verify payment on backend
+						const verify = await axios.post(`${BASE_URL}/api/v1/user/payment/verify`, {
+							...response,
+							turfId: id,
+							date: selectedDate,
+							timeSlot: selectedTimeSlot,
+							userId,
+							amount: inputs.price,
+						}, {
+							headers: {
+								'Authorization': `Bearer ${token}`,
+								'Content-Type': 'application/json',
+							}
+						});
+
+						if (verify.data.success) {
+							toast.success("Booking confirmed! 🎉");
+							navigate('/bookings');
+						}
+					} catch (error) {
+						toast.error("Payment verification failed");
+						console.log(error);
+					}
+				},
+				prefill: {
+					email: localStorage.getItem('email') || '',
+				},
+				theme: { color: '#111827' },
+				modal: {
+					ondismiss: () => {
+						toast.error("Payment cancelled");
+						setIsProcessing(false);
+					}
+				}
+			};
+
+			const rzp = new window.Razorpay(options);
+			rzp.open();
+
 		} catch (error) {
 			console.log(error);
-			toast.error("already booked");
+			toast.error("Something went wrong");
+		} finally {
+			setIsProcessing(false);
 		}
-	}
+	};
 
 	return (
 		<div className="bg-gray-200 min-h-screen p-4 lg:pt-5">
@@ -111,8 +164,6 @@ const GroundDetails = () => {
 					<div className='bg-gray-100 flex flex-col border border-gray-300 p-6 rounded-lg justify-center mb-4 shadow-md'>
 						<h1 className='text-xl font-semibold mb-2'>Location</h1>
 						<p className="text-lg mb-2">{inputs.location}</p>
-						
-						
 					</div>
 					<div className='bg-gray-100 flex flex-col border border-gray-300 p-6 rounded-lg justify-center mb-4 shadow-md'>
 						<h1 className='text-xl font-semibold mb-2'>About {inputs.name}</h1>
@@ -128,19 +179,19 @@ const GroundDetails = () => {
 						<h1 className='text-xl font-semibold mb-3'>Images</h1>
 						<div className="flex flex-row overflow-scroll">
 							{inputs.images?.map((image, index) => (
-								<div key={index} className="">
+								<div key={index}>
 									<img
 										src={image}
 										onClick={() => openImageViewer(index)}
 										className="cursor-pointer"
 										alt={`Image ${index + 1}`}
-										style={{ maxWidth: '200px', height: '150px', margin: "2px" }} // Set max width and height for thumbnail
+										style={{ maxWidth: '200px', height: '150px', margin: "2px" }}
 									/>
 								</div>
 							))}
 						</div>
 					</div>
-					<form onSubmit={bookGround} className='bg-gray-100 flex flex-col border border-gray-300 p-6 rounded-lg justify-center mb-4 shadow-md'>
+					<form onSubmit={handlePayment} className='bg-gray-100 flex flex-col border border-gray-300 p-6 rounded-lg justify-center mb-4 shadow-md'>
 						<div className="mb-4">
 							<label className="block text-gray-700 mb-2">Select Date:</label>
 							<input
@@ -164,23 +215,26 @@ const GroundDetails = () => {
 									<option key={index} value={time}>{time}</option>
 								)}
 							</select>
-							{isCurrentDate ? <span className='text-red-500 ml-3'>No slots available for selected date</span> : ""}
+							{isCurrentDate && <span className='text-red-500 ml-3'>No slots available for selected date</span>}
 						</div>
 						{isLogin && <>
 							<button
 								type='submit'
-								className='bg-gray-900 text-white lg:w-32 px-4 py-2 rounded-lg mb-2'
+								disabled={isProcessing}
+								className='bg-gray-900 text-white lg:w-40 px-4 py-2 rounded-lg mb-2 disabled:opacity-50'
 							>
-								Book
+								{isProcessing ? 'Processing...' : `Pay ₹${inputs.price}`}
 							</button>
 							<span className='font-semibold'>@ ₹{inputs.price}/hour</span>
 						</>}
-						{!isLogin && <button
-							onClick={() => { navigate('/login') }}
-							className='bg-gray-900 text-white lg:w-32 px-4 py-2 rounded-lg'
-						>
-							Login to book
-						</button>}
+						{!isLogin &&
+							<button
+								onClick={() => navigate('/login')}
+								className='bg-gray-900 text-white lg:w-32 px-4 py-2 rounded-lg'
+							>
+								Login to book
+							</button>
+						}
 					</form>
 				</div>
 			</div>

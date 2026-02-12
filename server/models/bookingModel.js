@@ -19,6 +19,23 @@ export const bookingSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-});
+    amount: {
+        type: Number,
+        required: false,
+    },
+    paymentId: {
+        type: String,
+        required: false,
+    },
+    orderId: {
+        type: String,
+        required: false,
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'confirmed', 'cancelled'],
+        default: 'pending',
+    },
+}, { timestamps: true });
 
-export const Booking = mongoose.model('Booking', bookingSchema); 
+export const Booking = mongoose.model('Booking', bookingSchema);
