@@ -22,6 +22,7 @@ A full-stack **MERN** (MongoDB, Express.js, React.js, Node.js) web application t
 - 🧾 Booking Management for Users and Admins
 - 🏟️ Turf Listing with Availability Status
 - 📊 Admin Dashboard for Turf Owners
+- 🔐 Razorpay Payment Gateway Integration (Test Mode)
 
 ---
 
