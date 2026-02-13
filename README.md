@@ -94,9 +94,7 @@ Turf-Booking-Portal/
 ````
 
 ## 🔮 Future Enhancements
-
-* 💳 Payment Gateway Integration (Stripe/Razorpay)
-* 📱 PWA Support for mobile experience
+e
 * 🗺️ Map-based Turf Discovery (Google Maps API)
 * 📊 Real-time Admin Analytics & Graphs
 * 📩 Email/SMS Booking Confirmations
