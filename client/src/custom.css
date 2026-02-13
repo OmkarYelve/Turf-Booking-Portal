@@ -1,4 +1,7 @@
 /* src/custom.css - Responsive Version */
+video {
+    display: block;
+}
 
 * {
   margin: 0;
@@ -9,10 +12,8 @@
 
 html,
 body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  overflow-x: hidden;
+  padding-top: 0; 
 }
 
 *::selection {
@@ -131,7 +132,7 @@ video {
   text-align: center;
   z-index: 10;
   color: #fff;
-  padding: 0 20px;
+  padding: 72px 20px 0 20px; /* top padding = navbar height */
 }
 
 #page1 h1 {
@@ -526,7 +527,7 @@ video {
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   body {
-    padding-top: 70px;
+    padding-top: 0;
   }
 
   #nav {

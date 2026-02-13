@@ -5,20 +5,26 @@ import adminRoute from './routes/adminRoutes.js';
 import userRoute from './routes/userRoutes.js';
 import connectdb from './dbconfig/connectdb.js';
 
-
-dotenv.config(); // load environment variables
+dotenv.config();
 
 const app = express();
 
 //connect db
 connectdb();
 
-//middlewares
 app.use(cors({
-    origin: ["https://turf-booking-portal-hb1k.vercel.app"], // your frontend URL
-    credentials: true
+    origin: "*",
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'email'],
+    exposedHeaders: ['Content-Length', 'X-Requested-With'],
 }));
+
+app.options("*", cors());
+
+//middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use('/api/v1/admin', adminRoute);
